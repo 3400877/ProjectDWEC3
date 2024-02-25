@@ -48,7 +48,7 @@
     <a href="/" id="moviedar" class="reset">MOVIEDAR</a>
     <div>
       <a href="login.html">Login</a>
-      <a>Sign up</a>
+      <a href="signup.html">Sign up</a>
       <a id="hamb-menu">☰</a>
     </div>
   </nav>
@@ -112,7 +112,7 @@
   </div>
 
   <div class="main-container">
-    <div id="canvas-grid">
+    <div id="container-grid">
       <main class="main">
         <header class="btn-group">
           <button id="cal-prev-mon" class="button">Previous Month</button>
@@ -183,7 +183,10 @@
       <script type="module" src="canvas.js"></script>
       <div class="main" id="canvas-div">
         <canvas id="my-canvas"></canvas>
-        <button class="button">Sign</button>
+        <div class="flex">
+          <button class="button" id="sign">Sign</button>
+          <button class="button" id="down">Download</button>
+        </div>
       </div>
       <script type="module" src="map.js"></script>
       <div class="main" id="map-div">

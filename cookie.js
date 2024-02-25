@@ -56,11 +56,17 @@ acceptButton.addEventListener("click", () => {
 
 
 const cookieText = getCookie('username');
-console.log(cookieText);
 
 if (cookieText.length != 0) {
-  window.alert("Good day, " + cookieText + ".");
+  const helloDiv = document.createElement("div");
+  helloDiv.classList.add("main");
+  const helloP = document.createElement("p");
+  helloDiv.append(helloP);
+  helloP.textContent = "Have a good day, " + cookieText + "!";
+  document.getElementById("container-grid").prepend(helloDiv);
 } else {
   saveNameCookie();
 }
-setTimeout(displayPopup, 150);
+setTimeout(displayPopup, 15000);
+
+export { getCookie };
