@@ -50,7 +50,10 @@ declineButton.addEventListener("click", () => {
 });
 
 acceptButton.addEventListener("click", () => {
-  cookiePopup.classList.add("hidden");
+  const notice = document.createElement("p");
+  notice.textContent = "Thank you for your collaboration";
+  cookiePopup.replaceChildren(notice);
+  setTimeout(hidePopup, 5000);
 });
 
 
@@ -67,6 +70,6 @@ if (cookieText.length != 0) {
 } else {
   saveNameCookie();
 }
-setTimeout(displayPopup, 15000);
+setTimeout(displayPopup, 150);
 
 export { getCookie };
