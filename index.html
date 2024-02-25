@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Moviedar - Cinema Calendar</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+  <script type="module" src="movielist.js"></script>
+  <script type="module" src="calendar.js"></script>
+  <script type="module" src="main.js"></script>
+  <script type="module" src="cookie.js"></script>
+  <script type="module" src="labyrinth/labyrinth.js"></script>
+  <script type="module" src="popups/popups.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+</head>
+
+<body>
+  <div class="hidden" id="labyrinth-grid">
+    <div id="labyrinth-div" tabindex="1">
+      <div class="grid-cell blocked"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell blocked"></div>
+      <div class="grid-cell blocked"></div>
+      <div id="start-cell" class="grid-cell">
+        <div id="character"><img src="assets/character.png" alt="Character"></div>
+      </div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell blocked"></div>
+      <div class="grid-cell blocked"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell"></div>
+      <div class="grid-cell blocked"></div>
+      <div class="grid-cell blocked"></div>
+      <div class="grid-cell blocked"></div>
+      <div id="end-cell" class="grid-cell end-cell"></div>
+    </div>
+  </div>
+  <nav class="nav-bar">
+    <a href="/" id="moviedar" class="reset">MOVIEDAR</a>
+    <div>
+      <a href="login.html">Login</a>
+      <a>Sign up</a>
+      <a id="hamb-menu">☰</a>
+    </div>
+  </nav>
+  <div id="main-sidebar" class="sidebar hidden">
+    <ul>
+      <li><a id="btn-add-movie">Add movie</a></li>
+      <li><a id="btn-del-movie">Remove movie</a></li>
+      <li><a id="btn-mark-movie">Mark movie as watched</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </div>
+
+  <div class="popup hidden" id="popup-add-movie">
+    <form>
+      <h1>Add movie</h1>
+      <label>Title<br>
+        <input type="text" id="title">
+      </label>
+      <br>
+      <label>Director<br>
+        <input type="text" id="director">
+      </label>
+      <br>
+      <label>Cast<br>
+        <input type="text" id="cast">
+      </label>
+      <br>
+      <label>Date<br>
+        <input type="date" id="date">
+      </label>
+      <br>
+      <div class="flex">
+        <input type="submit" class="button" value="Submit">
+        <input type="reset" class="button" value="Reset">
+      </div>
+    </form>
+  </div>
+  
+  <div class="popup hidden" id="popup-del-movie">
+    <form>
+      <h1>Remove movie</h1>
+      <div class="flex">
+        <label>Title<br>
+          <input type="text" id="rm-title">
+        </label>
+        <input type="submit" class="button" value="Submit">
+      </div>
+		</form>
+  </div>
+
+  <div class="popup hidden" id="popup-mark-movie">
+    <form>
+      <h1>Mark movie as Watched</h1>
+			<label>Title<br>
+				<input type="text" id="watch-title">
+			</label>
+			<div class="flex">
+				<input type="submit" class="button" value="Watch / Unwatch">
+			</div>
+		</form>
+  </div>
+
+  <div class="main-container">
+    <div id="canvas-grid">
+      <main class="main">
+        <header class="btn-group">
+          <button id="cal-prev-mon" class="button">Previous Month</button>
+          <button id="cal-prev-day" class="button">Yesterday</button>
+          <label for="datepicker" class="button">
+            <div id="current-day"></div>
+            <input type="date" id="datepicker">
+          </label>
+  
+          <button id="cal-next-day" class="button">Tomorrow</button>
+          <button id="cal-next-mon" class="button">Next Month</button>
+        </header>
+        <article id="cal">
+          <div id="cal-header">
+            <abbr title="Monday">Mo</abbr>
+            <abbr title="Tuesday">Tu</abbr>
+            <abbr title="Wednesday">We</abbr>
+            <abbr title="Thursday">Th</abbr>
+            <abbr title="Friday">Fr</abbr>
+            <abbr title="Saturday">Sa</abbr>
+            <abbr title="Sunday">Su</abbr>
+          </div>
+          <div id="cal-grid">
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+            <div class="cal-cell">0</div>
+          </div>
+      </main>
+      <script type="module" src="canvas.js"></script>
+      <div class="main" id="canvas-div">
+        <canvas id="my-canvas"></canvas>
+        <button class="button">Sign</button>
+      </div>
+      <script type="module" src="map.js"></script>
+      <div class="main" id="map-div">
+        <div id="map"></div>
+      </div>
+    </div>
+    <aside class="main">
+      <h1 id="movie-header">Movies</h1>
+      <div id="movie-list"></div>
+    </aside>
+  </div>
+
+  <div id="cookie-popup" class="hidden">
+    <p>Do you accept for us to store cookies?</p>
+    <div class="flex">
+      <button class="button" id="decline-button">Decline</button>
+      <button class="button" id="accept-button">I accept</button>
+    </div>
+  </div>
+
+</body>
+
+</html>

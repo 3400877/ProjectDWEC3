@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Moviedar - Cinema Calendar</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+  <script type="module" src="movielist.js"></script>
+  <script type="module" src="main.js"></script>
+  <script type="module" src="gallery/gallery.js"></script>
+</head>
+
+<body>
+  <nav class="nav-bar">
+    <a href="/" id="moviedar" class="reset">MOVIEDAR</a>
+    <div>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+      <a id="hamb-menu">☰</a>
+    </div>
+  </nav>
+  <div id="main-sidebar" class="sidebar hidden">
+    <ul>
+      <li><a>Add movie</a></li>
+      <li><a>Remove movie</a></li>
+      <li><a>Mark movie as watched</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </div>
+  <div class="main-container">
+    <main class="main">
+      <section id="gallery">
+        <img src="./assets/img/across-the-spider-verse.jpg" alt="Image 1">
+        <img src="./assets/img/placeholder.jpg" alt="Image 2">
+        <img src="./assets/img/placeholder.jpg" alt="Image 3">
+        <img src="./assets/img/placeholder.jpg" alt="Image 4">
+        <img src="./assets/img/placeholder.jpg" alt="Image 5">
+        <img src="./assets/img/placeholder.jpg" alt="Image 6">
+        <img src="./assets/img/placeholder.jpg" alt="Image 7">
+        <img src="./assets/img/placeholder.jpg" alt="Image 8">
+        <img src="./assets/img/placeholder.jpg" alt="Image 9">
+      </section>
+    </main>
+    <section id="external-container" class="hidden">
+      <div>
+        <img id="active-img" src="./assets/img/across-the-spider-verse.jpg" alt="Image 1">
+        <button id="close-btn" class="button">&#10006;</button>
+      </div>
+      <div id="internal-container" class="flex">
+        <button id="back-btn" class="button">&larr;</button>
+        <button id="next-btn" class="button">&rarr;</button>
+      </div>
+    </section>
+  </div>
+
+
+
+</body>
+
+</html>
